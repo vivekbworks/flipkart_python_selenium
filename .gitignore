@@ -1,0 +1,5 @@
+.venv
+log.html
+.env
+.idea
+.pytest_cache
