@@ -18,12 +18,13 @@ def click_on_add_to_cart_and_verify_total_price_is_same_as_display_price(driver,
     total_amount = driver.find_element(By.XPATH, total_amount_loc).text
     assert total_amount == tenth_phone_price, f"total price is not matches with display price on list. Total price is : {total_amount} and display price is : {tenth_phone_price}"
 
-def click_on_plus_sign_and_verify_it_shows_notificatios(driver):
+def click_on_plus_sign_and_verify_it_shows_notificatios(driver, tenth_phone_text):
     plus_btn = driver.find_element(By.XPATH, plus_btn_loc)
     driver.execute_script("arguments[0].scrollIntoView();", plus_btn)
     plus_btn.click()
     msg_after_click_plus_btn = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.XPATH, notification_loc))).text
-    assert 'You can buy only up to 1 unit(s) of this product' in msg_after_click_plus_btn, "You can buy only up to 1 unit(s) of this product message not visible"
+    print(msg_after_click_plus_btn)
+    assert f"You've changed '{tenth_phone_text}' QUANTITY to '2'" in msg_after_click_plus_btn, "can not add one more item to cart"
     WebDriverWait(driver, 20).until(EC.invisibility_of_element_located((By.XPATH, notification_loc)))
 
 def click_on_remove_and_verify_item_removed_from_cart(driver, tenth_phone_text):
@@ -32,7 +33,6 @@ def click_on_remove_and_verify_item_removed_from_cart(driver, tenth_phone_text):
     successfully_remove_msg = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, notification_loc))).text
     print(successfully_remove_msg)
     remove_phone_msg = f'{tenth_phone_text} from your cart'
-    print(remove_phone_msg)
     assert remove_phone_msg in successfully_remove_msg, "seems like item is not removed yet from cart"
 
 def Verify_missing_cart_message_and_login_message_are_visible(driver):

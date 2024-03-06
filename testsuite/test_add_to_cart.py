@@ -1,12 +1,12 @@
-from testsuite.src.cartpage import *
-from testsuite.src.homepage import *
-from testsuite.src.login_page import open_browser
+from .src.cartpage import *
+from .src.homepage import *
+from .src.login_page import open_browser
 
 # variables
 url = "https://www.flipkart.com/"
 text_to_search = "mobile"
 
-def add_remove_items_from_cart():
+def test_add_remove_items_from_cart():
     try:
         driver = open_browser('chrome')
         driver.get(url)
@@ -22,7 +22,7 @@ def add_remove_items_from_cart():
 
         click_on_add_to_cart_and_verify_total_price_is_same_as_display_price(driver, tenth_phone_price)
 
-        click_on_plus_sign_and_verify_it_shows_notificatios(driver)
+        click_on_plus_sign_and_verify_it_shows_notificatios(driver, tenth_phone_text)
 
         click_on_remove_and_verify_item_removed_from_cart(driver, tenth_phone_text)
 
@@ -31,4 +31,4 @@ def add_remove_items_from_cart():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-add_remove_items_from_cart()
+test_add_remove_items_from_cart()
