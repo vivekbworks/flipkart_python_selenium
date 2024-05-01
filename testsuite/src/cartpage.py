@@ -3,8 +3,10 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.webdriver.support.ui import Select
 from testsuite.src.cartpageLocators import *
+from selenium.webdriver.common.alert import Alert
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 def switch_to_new_window(driver):
@@ -36,7 +38,23 @@ def click_on_remove_and_verify_item_removed_from_cart(driver, tenth_phone_text):
     assert remove_phone_msg in successfully_remove_msg, "seems like item is not removed yet from cart"
 
 def Verify_missing_cart_message_and_login_message_are_visible(driver):
-    missing_cart_msg = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, missing_cart_text_loc))).text
+    missing_cart_msg = WebDriverWait(driver, 20).until(EC.element_to_be_clickable(By.XPATH, missing_cart_text_loc)).text
     assert 'Missing Cart items?' in missing_cart_msg, "Missing Cart items? text not visible on screen"
     login_to_see_msg = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, login_to_see_loc))).text
     assert 'Login to see' in login_to_see_msg, "Login to see text not visible on screen"
+
+# login button on cart page
+    action = ActionChains(driver)
+    action.move_to_element(By.XPATH, "(//a[@class='_1_3w1N'])")
+    # driver.find_element(By.XPATH, "(//a[@class='_1_3w1N'])")
+
+# flipkart plus zone
+    driver.execute_script("argument[0].scrollintoiew()", "(//div[@class='_3vhnxf'])[2]")
+    driver.find_element(By.XPATH, "(//div[@class='_3vhnxf'])[2]").click()
+
+    mobile_weblements = driver.find_elements(By.XPATH, "//div[@class='_4rR01T']")
+    mob_count = len(mobile_weblements)
+    for i in range(mob_count):
+        if i == 2:
+            driver.find_elements(By.XPATH, "//div[@class='_4rR01T']").click()
+        

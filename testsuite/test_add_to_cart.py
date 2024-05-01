@@ -29,6 +29,7 @@ def test_add_remove_items_from_cart():
         Verify_missing_cart_message_and_login_message_are_visible(driver)
 
     except Exception as e:
+        driver.save_screenshot("screenshot.png")
         print(f"An error occurred: {e}")
 
 test_add_remove_items_from_cart()

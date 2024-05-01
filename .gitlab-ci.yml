@@ -1,0 +1,33 @@
+stages:
+  - setup
+  - test
+  - report
+
+setup_job:
+  stage: setup
+  script:
+    - echo "Setting up the environment..."
+    - ./install.bat    # This line create virtual environment and download all dependencies mention in requirements.txt file
+  tags:
+    - windows
+
+test_job:
+  stage: test
+  script:
+    - echo "Executing Selenium tests..."
+    - pytest  # Run your Selenium-based tests
+  artifacts:
+    paths:
+      - log.html  # Save the HTML report for further use
+  only:
+    - main  # Run the testcases only code push to the main branch
+  tags:
+    - windows
+
+report_job:
+  stage: report
+  script:
+    - echo "Storing test report..."
+    - cp log.html test-reports/  # Copy the HTML report to a designated location
+  tags:
+    - windows

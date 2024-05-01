@@ -6,3 +6,5 @@ remove_btn_loc = "(//div[text()='Remove'])"
 remove_btn_popup = "(// div[text() = 'Remove'])[1]"
 missing_cart_text_loc = "//div[contains(text(),'Missing Cart items?')]"
 login_to_see_loc = "//div[contains(text(),'Login to see')]"
+
+# (//button[@class='_23FHuj'])[4]
